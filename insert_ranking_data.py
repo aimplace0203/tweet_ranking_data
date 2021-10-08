@@ -84,7 +84,7 @@ def writeUploadData(datas):
                 diff = '-'
                 arrow = ''
             rdate = datetime.datetime.strptime(data[3], '%b %d, %Y').strftime('%Y/%m/%d')
-            sheet.append_row(data)
+            sheet.append_row([keyword, rank, diff, rdate])
             
             message += f'『{keyword}』 {rank}位🏅{arrow}\n'
 
