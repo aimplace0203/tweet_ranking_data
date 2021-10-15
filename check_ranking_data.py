@@ -6,7 +6,6 @@ import datetime
 import requests
 import gspread
 from time import sleep
-from webdriver_manager.chrome import ChromeDriverManager
 from oauth2client.service_account import ServiceAccountCredentials
 
 # Logger setting
@@ -104,7 +103,6 @@ def checkUploadData(datas):
         message += "https://aimplace.co.jp/p"
         message += '[/info]'
         sendChatworkNotification(message)
-        return
     except Exception as err:
         logger.debug(f'Error: checkUploadData: {err}')
         exit(1)
@@ -120,8 +118,8 @@ if __name__ == '__main__':
         logger.info(f'ranking: {data}')
         checkUploadData(data)
 
-        logger.info("insert_ranking_data: Finish")
+        logger.info("check_ranking_data: Finish")
         exit(0)
     except Exception as err:
-        logger.debug(f'insert_ranking_data: {err}')
+        logger.debug(f'check_ranking_data: {err}')
         exit(1)
