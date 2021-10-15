@@ -105,7 +105,7 @@ def writeUploadData(datas):
 if __name__ == '__main__':
 
     try:
-        rankDataDirPath = './csv'
+        rankDataDirPath = os.environ["RANK_DATA_DIR"]
         dateDirPath = getLatestDownloadedDirName(rankDataDirPath)
 
         data = list(getRankingCsvData(f'{dateDirPath}/aimplace.co.jp.txt'))
