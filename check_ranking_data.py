@@ -55,7 +55,7 @@ def getRankingCsvData(csvPath):
         for row in buf:
             yield row
 
-def writeUploadData(datas):
+def checkUploadData(datas):
     try:
         SPREADSHEET_ID = os.environ['RANK_DATA_SSID']
         scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
@@ -67,15 +67,24 @@ def writeUploadData(datas):
         message += "ꉂꉂ📢PeoPle's 週間順位速報✨\n\n"
 
         for data in datas:
+            rdate = datetime.datetime.strptime(data[3], '%b %d, %Y').strftime('%Y/%m/%d')
+            if rdate != today.strftime('%Y/%m/%d'):
+                message = "[info][title]【事前確認用】本日のPeoPle'sランキングツイート[/title]"
+                message += "過去のデータが取得されました。\n担当者は本日の順位計測に問題がないかご確認ください。[/info]"
+                sendChatworkNotification(message)
+                logger.debug(f'checkUploadData: 過去のデータが取得されました。')
+                exit(0)
             keyword = data[0]
             try:
                 rank = int(data[1])
+                medal = '🏅'
             except Exception as err:
                 rank = '-'
+                medal = ''
             try:
-                diff = int(data[2])
+                diff = int(data[2].replace(' ', ''))
                 if diff == 0:
-                    arrow = '➡️'
+                    arrow = '→'
                 elif diff > 0:
                     arrow = '↗️'
                 else:
@@ -83,22 +92,21 @@ def writeUploadData(datas):
             except Exception as err:
                 diff = '-'
                 arrow = ''
-            rdate = datetime.datetime.strptime(data[3], '%b %d, %Y').strftime('%Y/%m/%d')
-            sheet.append_row([keyword, rank, diff, rdate])
+            sheet.append_row([keyword, rank, diff, rdate], value_input_option='USER_ENTERED')
             
-            message += f'『{keyword}』 {rank}位🏅{arrow}\n'
+            message += f'『{keyword}』 {rank}位{medal}{arrow}\n'
 
         last_column_num = len(list(sheet.row_values(1)))
         last_column_alp = num2alpha(last_column_num)
         sheet.set_basic_filter(name=(f'A:{last_column_alp}'))
 
-        message += "\n＼check✌️／\n"
+        message += "\n＼check／✌🏻\n"
         message += "https://aimplace.co.jp/p"
         message += '[/info]'
         sendChatworkNotification(message)
         return
     except Exception as err:
-        logger.debug(f'Error: writeUploadData: {err}')
+        logger.debug(f'Error: checkUploadData: {err}')
         exit(1)
 
 ### main_script ###
@@ -110,7 +118,7 @@ if __name__ == '__main__':
 
         data = list(getRankingCsvData(f'{dateDirPath}/aimplace.co.jp.txt'))
         logger.info(f'ranking: {data}')
-        writeUploadData(data)
+        checkUploadData(data)
 
         logger.info("insert_ranking_data: Finish")
         exit(0)
