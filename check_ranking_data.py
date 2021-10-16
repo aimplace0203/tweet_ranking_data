@@ -63,7 +63,7 @@ def checkUploadData(datas):
         sheet = gc.open_by_key(SPREADSHEET_ID).worksheet('Rank Data')
 
         message = "[info][title]【事前確認用】本日のPeoPle'sランキングツイート[/title]"
-        message += "ꉂꉂ📢PeoPle's 週間順位速報✨\n\n"
+        message += f"ꉂꉂ📢PeoPle's 検索順位速報✨\n\n"
 
         for data in datas:
             rdate = datetime.datetime.strptime(data[3], '%b %d, %Y').strftime('%Y/%m/%d')
