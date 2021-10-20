@@ -66,7 +66,7 @@ def checkUploadData(datas):
         message += f"ꉂꉂ📢PeoPle's 検索順位速報✨\n\n"
 
         for data in datas:
-            rdate = datetime.datetime.strptime(data[3], '%b %d, %Y').strftime('%Y/%m/%d')
+            rdate = datetime.datetime.strptime(data[7], '%b %d, %Y').strftime('%Y/%m/%d')
             if rdate != today.strftime('%Y/%m/%d'):
                 message = "[info][title]【事前確認用】本日のPeoPle'sランキングツイート[/title]"
                 message += "過去のデータが取得されました。\n担当者は本日の順位計測に問題がないかご確認ください。[/info]"
@@ -81,9 +81,9 @@ def checkUploadData(datas):
                 rank = '-'
                 medal = ''
             try:
-                diff = int(data[2].replace(' ', ''))
+                diff = int(data[4].replace(' ', ''))
                 if diff == 0:
-                    arrow = '→'
+                    arrow = '➡️'
                 elif diff > 0:
                     arrow = '↗️'
                 else:
