@@ -64,9 +64,10 @@ def checkUploadData(datas):
 
         message = "[info][title]【事前確認用】本日のPeoPle'sランキングツイート[/title]"
         message += f"ꉂꉂ📢PeoPle's 検索順位速報✨\n\n"
+        message += f"◎計測地域：新宿🏙\n\n"
 
         for data in datas:
-            rdate = datetime.datetime.strptime(data[7], '%b %d, %Y').strftime('%Y/%m/%d')
+            rdate = datetime.datetime.strptime(data[9], '%b %d, %Y').strftime('%Y/%m/%d')
             if rdate != today.strftime('%Y/%m/%d'):
                 message = "[info][title]【事前確認用】本日のPeoPle'sランキングツイート[/title]"
                 message += "過去のデータが取得されました。\n担当者は本日の順位計測に問題がないかご確認ください。[/info]"
@@ -75,13 +76,13 @@ def checkUploadData(datas):
                 exit(0)
             keyword = data[0]
             try:
-                rank = int(data[1])
+                rank = int(data[3])
                 medal = '🏅'
             except Exception as err:
                 rank = '-'
                 medal = ''
             try:
-                diff = int(data[4].replace(' ', ''))
+                diff = int(data[6].replace(' ', ''))
                 if diff == 0:
                     arrow = '➡️'
                 elif diff > 0:

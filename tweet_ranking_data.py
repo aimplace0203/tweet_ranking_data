@@ -56,7 +56,7 @@ def getUploadData(datas):
         message = f"ꉂꉂ📢PeoPle's 検索順位速報✨%0a%0a"
 
         for data in datas:
-            rdate = datetime.datetime.strptime(data[7], '%b %d, %Y').strftime('%Y/%m/%d')
+            rdate = datetime.datetime.strptime(data[9], '%b %d, %Y').strftime('%Y/%m/%d')
             if rdate != today.strftime('%Y/%m/%d'):
                 message = "[info][title]PeoPle'sランキングツイート結果[/title]"
                 message += "本日の順位計測データが存在しませんでした。[/info]"
@@ -65,13 +65,13 @@ def getUploadData(datas):
                 exit(0)
             keyword = data[0]
             try:
-                rank = int(data[1])
+                rank = int(data[3])
                 medal = '🏅'
             except Exception as err:
                 rank = '-'
                 medal = ''
             try:
-                diff = int(data[4].replace(' ', ''))
+                diff = int(data[6].replace(' ', ''))
                 if diff == 0:
                     arrow = '➡️'
                 elif diff > 0:
@@ -84,7 +84,7 @@ def getUploadData(datas):
             
             message += f'『{keyword}』 {rank}位{medal}{arrow}%0a'
 
-        message += "\n＼check／✌🏻%0a"
+        message += "%0a＼check／✌🏻%0a"
         message += "https://aimplace.co.jp/p"
         return message
     except Exception as err:
