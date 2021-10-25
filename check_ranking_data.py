@@ -65,7 +65,7 @@ def checkUploadData(datas):
         message = "[info][title]【事前確認用】本日のPeoPle'sランキングツイート[/title]"
         message += f"ꉂꉂ📢PeoPle's 検索順位速報✨\n\n"
         message += f"◎計測地域：新宿🏙\n"
-        message += f"ーーー\n"
+        message += f"ーー\n"
 
         for data in datas:
             rdate = datetime.datetime.strptime(data[9], '%b %d, %Y').strftime('%Y/%m/%d')
