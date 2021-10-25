@@ -55,7 +55,7 @@ def getUploadData(datas):
     try:
         message = f"ꉂꉂ📢PeoPle's 検索順位速報✨%0a%0a"
         message += f"◎計測地域：新宿🏙%0a"
-        message += f"ーーー%0a%0a"
+        message += f"ーーー%0a"
 
         for data in datas:
             rdate = datetime.datetime.strptime(data[9], '%b %d, %Y').strftime('%Y/%m/%d')
